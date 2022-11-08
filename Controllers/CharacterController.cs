@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using dotnet.rpg.Services.CharacterService;
+using dotnet.rpg.Dtos.Character;
+using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet.rpg.Controllers
 {
@@ -6,21 +8,50 @@ namespace dotnet.rpg.Controllers
 	[Route("api/[controller]")]
 	public class CharacterController : ControllerBase
 	{
-		private static List<Character> characters = new List<Character>(){
-			new Character(),
-			new Character {Id = 1, Name = "Sam"}
-		};
+    private readonly ICharacterService characterService;
+
+		public CharacterController(ICharacterService characterService)
+		{
+      this.characterService = characterService;
+			
+		}
+
+		[HttpPost]
+		public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter)
+		{
+			return Ok(await characterService.AddCharacter(newCharacter));
+		}
+
+		[HttpDelete]
+		public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> DeleteCharacter(int id)
+		{
+			var response = await characterService.DeleteCharacter(id);
+			if(!response.Success){
+				return NotFound(response);
+			}
+			return Ok(response);
+		}
 
 		[HttpGet("GetAll")]
-		public ActionResult<List<Character>> Get()
+		public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
 		{
-			return Ok(characters);
+			return Ok( await characterService.GetAllCharacters());
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<List<Character>> GetSingle(int id)
+		public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id)
 		{
-			return Ok(characters.FirstOrDefault(c => c.Id == id));
+			return Ok(await characterService.GetCharacterById(id));
+		}
+
+		[HttpPut]
+		public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> UpdateCharacter(UpdateCharacterDto updatedCharacter)
+		{
+			var response = await characterService.UpdateCharacter(updatedCharacter);
+			if(!response.Success){
+				return NotFound(response);
+			}
+			return Ok(response);
 		}
 	}
 }
