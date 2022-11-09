@@ -1,6 +1,8 @@
 
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq.Expressions;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using dotnet.rpg.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -112,7 +114,7 @@ namespace dotnet.rpg.Services.AuthRepository
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
         SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
 
-        return tokenHandler.WriteToken(token); // Token
+        return tokenHandler.WriteToken(token); 
     }
   }
 }
