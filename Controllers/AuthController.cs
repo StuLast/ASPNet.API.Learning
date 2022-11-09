@@ -1,7 +1,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-using dotnet.rpg.Services.AuthRepository;
+using dotnet.rpg.Data;
 using dotnet.rpg.Dtos.User;
 
 namespace dotnet.rpg.Controllers
