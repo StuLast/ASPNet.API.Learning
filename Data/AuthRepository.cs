@@ -1,13 +1,10 @@
 
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq.Expressions;
 using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
-using dotnet.rpg.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-namespace dotnet.rpg.Services.AuthRepository
+namespace dotnet.rpg.Data
 {
   public class AuthRepository : IAuthRepository
   {

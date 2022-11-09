@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 using dotnet.rpg.Data;
 using dotnet.rpg.Services.CharacterService;
-using dotnet.rpg.Services.AuthRepository;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +45,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidateAudience = false
     };
 });
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
